@@ -5,33 +5,33 @@ document.addEventListener("DOMContentLoaded", () => {
   const cartItemsContainer = document.querySelector(".cart-items");
   const cartTotalElement = document.querySelector(".cart-total");
   const cartItemCount = document.querySelector(".cart-item-count");
-  const categoryButtons = document.querySelectorAll(".category-tabs button");
-  const menuItems = document.querySelectorAll(".menu-item");
-  const subcategoryFilters = document.getElementById("subcategory-filters");
-  const subcategoryButtons = subcategoryFilters.querySelectorAll(".filter-btn");
+  const categoryButtons = document.querySelectorAll('.category-tabs button');
+  const menuItems = document.querySelectorAll('.menu-item');
+  const subcategoryFilters = document.getElementById('subcategory-filters');
+  const subcategoryButtons = subcategoryFilters.querySelectorAll('.filter-btn');
 
-  let cartItems = []; // Array to store cart items
 
-  // Open Cart
+  let cartItems = [];
+
+
   const openCart = () => {
     cart.classList.remove("hidden");
   };
 
-  // Close Cart
+
   const closeCart = () => {
     cart.classList.add("hidden");
   };
 
-  // Update Cart Total
+
   const updateCartTotal = () => {
     const total = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     cartTotalElement.textContent = `Total: RM${total.toFixed(2)}`;
     cartItemCount.textContent = cartItems.reduce((count, item) => count + item.quantity, 0);
   };
 
-  // Render Cart
   const renderCart = () => {
-    cartItemsContainer.innerHTML = ""; // Clear the cart display
+    cartItemsContainer.innerHTML = ""; 
 
     cartItems.forEach((item) => {
       const li = document.createElement("li");
@@ -42,7 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
       cartItemsContainer.appendChild(li);
     });
 
-    // Add event listeners for remove buttons
+
     document.querySelectorAll(".remove-item").forEach((button) => {
       button.addEventListener("click", (e) => {
         const itemId = e.target.closest("button").dataset.id;
@@ -53,56 +53,54 @@ document.addEventListener("DOMContentLoaded", () => {
     updateCartTotal();
   };
 
-  // Add Item to Cart
+  
   const addItemToCart = (item) => {
     const existingItem = cartItems.find((cartItem) => cartItem.id === item.id);
 
     if (existingItem) {
-      existingItem.quantity += 1; // Increment quantity if item exists
+      existingItem.quantity += 1;
     } else {
-      cartItems.push({ ...item, quantity: 1 }); // Add new item
+      cartItems.push({ ...item, quantity: 1 });
     }
 
-    renderCart(); // Update cart display
+    renderCart();
   };
 
-  // Remove Item from Cart
+ 
   const removeItemFromCart = (id) => {
-    cartItems = cartItems.filter((item) => item.id !== id); // Filter out the item
-    renderCart(); // Update cart display
+    cartItems = cartItems.filter((item) => item.id !== id);
+    renderCart();
   };
 
-  // Add to Cart Button Click Listener
-  document.addEventListener("click", (e) => {
-    if (e.target.classList.contains("add-to-cart")) {
+
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('add-to-cart')) {
       const menuItem = e.target.closest(".menu-item");
-      const id = menuItem.querySelector("h3").textContent; // Use item name as ID
+      const id = menuItem.querySelector("h3").textContent; 
       const name = menuItem.querySelector("h3").textContent;
-      const price = parseFloat(menuItem.querySelector(".price").textContent.replace("RM", "")); // Extract price
+      const price = parseFloat(menuItem.querySelector(".price").textContent.replace("RM", "")); 
 
       addItemToCart({ id, name, price });
     }
   });
 
-  // Open Cart Event Listener
-  cartIcon.addEventListener("click", openCart);
 
-  // Close Cart Event Listener
+  cartIcon.addEventListener("click", openCart);
   closeCartButton.addEventListener("click", closeCart);
 
-  // Filter Menu Items by Category
+
   function filterItems(category) {
-    menuItems.forEach((item) => {
-      const itemCategory = item.getAttribute("data-category");
-      if (category === "all" || itemCategory === category) {
-        item.style.display = "block"; // Show matching items
+    menuItems.forEach(item => {
+      const itemCategory = item.getAttribute('data-category');
+      if (category === 'all' || itemCategory === category) {
+        item.style.display = 'block'; 
       } else {
-        item.style.display = "none"; // Hide non-matching items
+        item.style.display = 'none'; 
       }
     });
   }
 
-  // Toggle Subcategory Filters Visibility
+
   function toggleSubcategoryFilters(show) {
     if (show) {
       subcategoryFilters.style.display = "block";
@@ -111,35 +109,37 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   }
 
-  // Category Buttons Event Listener
-  categoryButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const category = button.getAttribute("data-category");
 
-      // Update active state
-      categoryButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
+  categoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const category = button.getAttribute('data-category');
 
-      if (category === "drinks") {
+    
+      categoryButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+
+      if (category === 'drinks') {
         toggleSubcategoryFilters(true);
-        filterItems(category); // Show drinks and subcategories
+        filterItems(category); 
       } else {
         toggleSubcategoryFilters(false);
-        filterItems(category); // Filter by main category
+        filterItems(category); 
       }
     });
   });
 
-  // Subcategory Buttons Event Listener
-  subcategoryButtons.forEach((button) => {
-    button.addEventListener("click", () => {
-      const subcategory = button.getAttribute("data-category");
 
-      // Update active state
-      subcategoryButtons.forEach((btn) => btn.classList.remove("active"));
-      button.classList.add("active");
+  subcategoryButtons.forEach(button => {
+    button.addEventListener('click', () => {
+      const subcategory = button.getAttribute('data-category');
 
-      filterItems(subcategory); // Filter by subcategory
+      
+      subcategoryButtons.forEach(btn => btn.classList.remove('active'));
+      button.classList.add('active');
+
+
+      filterItems(subcategory);
     });
   });
 });

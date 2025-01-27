@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* General Styling */
 body {
     font-family: Arial, sans-serif;
@@ -96,4 +97,3 @@ body {
   .form button:hover {
     background-color: #c0392b;
   }
-  

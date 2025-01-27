@@ -1,7 +1,6 @@
-// Add event listener to fetch button
 document.getElementById('getDataButton')?.addEventListener('click', function () {
     console.log('Fetching data from API...');
-    fetch('http://localhost:8080/api/data')
+    fetch('http://localhost:8080/DemoServlet')
         .then((response) => response.text())
         .then((data) => {
             console.log('Data received:', data);
@@ -50,8 +49,6 @@ function goToPage(page) {
             `;
         });
 }
-
-
 
 // Dynamic navigation using data attributes
 navbarMenu?.addEventListener("click", (e) => {
@@ -105,5 +102,3 @@ function filterStores() {
         store.style.display = location.includes(filter) ? "" : "none";
     });
 }
-
-

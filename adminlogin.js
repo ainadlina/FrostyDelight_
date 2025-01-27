@@ -16,7 +16,8 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
     };
 
 
-    fetch('http://your-backend-endpoint.com/api/login', {
+    fetch('http://localhost:8080/DemoServlet/adminLogin'
+, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -37,3 +38,4 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
         console.error('Error:', error);
     });
 });
+
